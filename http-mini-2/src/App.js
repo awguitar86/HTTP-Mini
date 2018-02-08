@@ -88,7 +88,6 @@ class App extends Component {
       year: this.refs.year.value,
       price: this.refs.price.value
     };
-
     axios.post('https://joes-autos.herokuapp.com/api/vehicles', newCar)
       .then(res => {
         toast.success("Successfully added vehicle.");
@@ -102,7 +101,6 @@ class App extends Component {
       phone: this.refs.phone.value,
       address: this.refs.address.value
     };
-
     axios.post('https://joes-autos.herokuapp.com/api/buyers', newBuyer)
       .then( res => {
         toast.success("Successfully added buyer.");
@@ -120,7 +118,6 @@ class App extends Component {
 
   nameSearch() {
     let searchLetters = this.refs.searchLetters.value;
-
     axios.get(`https://joes-autos.herokuapp.com/api/vehicles/?search=${searchLetters}`)
       .then( res => {
         toast.success(`Successfully searched for ${searchLetters}`);
@@ -130,7 +127,6 @@ class App extends Component {
 
   byYear() {
     let year = this.refs.searchYear.value;
-
     axios.get(`https://joes-autos.herokuapp.com/api/vehicles/?year=${year}`)
       .then( res => {
         toast.success(`Successfully searched for ${year}`);
