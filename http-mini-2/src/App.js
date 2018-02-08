@@ -38,13 +38,19 @@ class App extends Component {
   }
 
   getPotentialBuyers() {
-    // axios (GET)
-    // setState with response -> buyersToDisplay
+    axios.get('https://joes-autos.herokuapp.com/api/buyers')
+      .then(res => {
+        toast.success("Successfully got Buyers.");
+        this.setState({ buyersToDisplay : res.data }); })
+      .catch( () => toast.error("Failed to fetch Buyers") );
   }
 
   sellCar( id ) {
-    // axios (DELETE)
-    // setState with response -> vehiclesToDisplay
+    axios.delete(`https://joes-autos.herokuapp.com/api/vehicles/${ id }`)
+      .then( res => {
+        toast.success("Successfully sold car.");
+        this.setState({ vehiclesToDisplay : res.data.vehicles }); })
+      .catch( () => toast.error("Failed at selling car.") );
   }
 
   filterByMake() {
