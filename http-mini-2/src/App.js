@@ -121,15 +121,21 @@ class App extends Component {
   nameSearch() {
     let searchLetters = this.refs.searchLetters.value;
 
-    // axios (GET)
-    // setState with response -> buyersToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles/?search=${searchLetters}`)
+      .then( res => {
+        toast.success(`Successfully searched for ${searchLetters}`);
+        this.setState({ vehiclesToDisplay : res.data }); })
+      .catch( () => toast.error(`Failed at searching for ${searchLetters}`) );
   }
 
   byYear() {
     let year = this.refs.searchYear.value;
 
-    // axios (GET)
-    // setState with response -> vehiclesToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles/?year=${year}`)
+      .then( res => {
+        toast.success(`Successfully searched for ${year}`);
+        this.setState({ vehiclesToDisplay : res.data }); })
+      .catch( () => `Failed at searching for ${year}`);
   }
 
   // Do not edit the code below
