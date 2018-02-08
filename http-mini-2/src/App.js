@@ -55,16 +55,21 @@ class App extends Component {
 
   filterByMake() {
     let make = this.refs.selectedMake.value;
-
-    // axios (GET)
-    // setState with response -> vehiclesToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles/?make=${make}`)
+      .then( res => {
+        toast.success(`Successfully fetched vehicles by ${make}`);
+        this.setState({ vehiclesToDisplay : res.data }); })
+      .catch( () => toast.error(`Failed to fetch vehicle by ${make}`) );
   }
 
   filterByColor() {
     let color = this.refs.selectedColor.value;
 
-    // axios (GET)
-    // setState with response -> vehiclesToDisplay
+    axios.get(`https://joes-autos.herokuapp.com/api/vehicles/?color=${color}`)
+      .then( res => {
+        toast.success(`Successfully fetched vehicles by ${color}`);
+        this.setState({ vehiclesToDisplay : res.data }); })
+      .catch( () => toast.error(`Failed at fetching vehicles by ${color}`));
   }
 
   updatePrice( priceChange, id ) {
@@ -84,7 +89,7 @@ class App extends Component {
       price: this.refs.price.value
     };
 
-    axios.put('https://joes-autos.herokuapp.com/api/vehicles', newCar)
+    axios.post('https://joes-autos.herokuapp.com/api/vehicles', newCar)
       .then(res => {
         toast.success("Successfully added vehicle.");
         this.setState({ vehiclesToDisplay : res.data.vehicles }); })
@@ -98,13 +103,19 @@ class App extends Component {
       address: this.refs.address.value
     };
 
-    //axios (POST)
-    // setState with response -> buyersToDisplay
+    axios.post('https://joes-autos.herokuapp.com/api/buyers', newBuyer)
+      .then( res => {
+        toast.success("Successfully added buyer.");
+        this.setState({ buyersToDisplay : res.data.buyers }); })
+      .catch( () => toast.error("Failed at adding new buyer") );
   }
 
   deleteBuyer( id ) {
-    // axios (DELETE)
-    //setState with response -> buyersToDisplay
+    axios.delete(`https://joes-autos.herokuapp.com/api/buyers/${id}`)
+      .then( res => {
+        toast.success("Successfully deleted buyer");
+        this.setState({ buyersToDisplay : res.data.buyers }); })
+      .catch( () => toast.error("Failed to delete buyer") );
   }
 
   nameSearch() {
